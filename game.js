@@ -27,13 +27,16 @@ function preload() {
   this.load.spritesheet('dude', 'assets/girl.png', { frameWidth: 32, frameHeight: 48 }); // Завантаження спрайту гравця
   this.load.image('house', 'assets/house.png'); // Завантаження зображення будинка
 }
-
+// Константа, щоб визначити ширину фону
+const WORLD_WIDTH = 4000;
 /// Створення гри
 function create() {
-  this.add.image(500, 500, 'sky').setDisplaySize(1000, 1000); // Додавання зображення неба і встановлення розміру на весь екран
+  // Додавання зображення неба і встановлення розміру на весь екран
+  this.add.image(500, 500, 'sky').setDisplaySize(WORLD_WIDTH, 1000);
 
   // Створення платформ
   platforms = this.physics.add.staticGroup();
+
   // Розташовуємо платформу з самого низу екрану
   platforms.create(700, 950, 'ground').setScale(2).refreshBody();
 
@@ -69,9 +72,9 @@ this.anims.create({
     frameRate: 10,
     repeat: -1
 });
- // Налаштування камери
- this.cameras.main.setBounds(0, 0, Number.MAX_SAFE_INTEGER, 1000); // Встановлення меж камери
- this.physics.world.setBounds(0, 0, Number.MAX_SAFE_INTEGER, 1000); // Встановлення меж фізичного світу
+  // Налаштування камери
+  this.cameras.main.setBounds(0, 0, WORLD_WIDTH, 1000); // Встановлення меж камери
+  this.physics.world.setBounds(0, 0, WORLD_WIDTH, 1000); // Встановлення меж фізичного світу
 
  // Слідкування камери за гравцем
  this.cameras.main.startFollow(player);
@@ -79,6 +82,10 @@ this.anims.create({
 
 // Оновлення гри
 function update() {
+   // Оновлення фону, якщо гравець дійшов до межі екрану
+   if (player.x >= this.cameras.main.worldView.right) {
+    this.add.image(this.cameras.main.worldView.right + 500, 500, 'sky').setDisplaySize(WORLD_WIDTH, 1000);
+  }
   if (cursors.left.isDown) {
       player.setVelocityX(-160); // Рух вліво
       player.anims.play('left', true);
