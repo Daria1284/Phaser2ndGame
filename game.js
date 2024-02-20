@@ -40,10 +40,10 @@ function create() {
  // Додавання зображення house на платформу
  this.add.image(100, 760, 'house');
 
-  // Створення гравця
-  player = this.physics.add.sprite(100, 450, 'dude');
-  player.setBounce(0.2);
-  player.setCollideWorldBounds(true);
+ // Створення гравця
+ player = this.physics.add.sprite(100, 450, 'dude');
+ player.setBounce(0.2);
+ player.setCollideWorldBounds(false); // Вимкнення обмежень за межами світу гри
 
   // Колізія гравця з платформами
   this.physics.add.collider(player, platforms);
@@ -69,6 +69,12 @@ this.anims.create({
     frameRate: 10,
     repeat: -1
 });
+ // Налаштування камери
+ this.cameras.main.setBounds(0, 0, Number.MAX_SAFE_INTEGER, 1000); // Встановлення меж камери
+ this.physics.world.setBounds(0, 0, Number.MAX_SAFE_INTEGER, 1000); // Встановлення меж фізичного світу
+
+ // Слідкування камери за гравцем
+ this.cameras.main.startFollow(player);
 }
 
 // Оновлення гри
