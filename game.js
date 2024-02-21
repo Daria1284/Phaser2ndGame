@@ -26,6 +26,7 @@ function preload() {
   this.load.image('ground', 'assets/platform.png'); // Завантаження зображення платформи
   this.load.spritesheet('dude', 'assets/girl.png', { frameWidth: 32, frameHeight: 48 }); // Завантаження спрайту гравця
   this.load.image('house', 'assets/house.png'); // Завантаження зображення будинка
+  this.load.image('ground1', 'assets/platform1.png'); // Завантаження зображення платформи
 }
 // Константа, щоб визначити ширину фону
 const WORLD_WIDTH = 5000; // Змінено ширину світу для відображення додаткової платформи
@@ -43,7 +44,12 @@ function create() {
 
   // Розташовуємо другу платформу далі вправо, за межами екрану
   platforms.create(2200, 950, 'ground').setScale(2).refreshBody(); // Додано другу платформу
-
+  platforms.create(700, 650, 'ground1').setScale(2).refreshBody(); 
+  platforms.create(1000, 500, 'ground1').setScale(2).refreshBody();
+  platforms.create(1500, 650, 'ground1').setScale(2).refreshBody();
+  platforms.create(2000, 500, 'ground1').setScale(2).refreshBody();
+  platforms.create(2700, 400, 'ground1').setScale(2).refreshBody();
+ 
   // Додавання зображення house на першу платформу
   this.add.image(100, 760, 'house');
 
