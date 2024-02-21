@@ -28,7 +28,8 @@ function preload() {
   this.load.image('house', 'assets/house.png'); // Завантаження зображення будинка
 }
 // Константа, щоб визначити ширину фону
-const WORLD_WIDTH = 4000;
+const WORLD_WIDTH = 5000; // Змінено ширину світу для відображення додаткової платформи
+
 /// Створення гри
 function create() {
   // Додавання зображення неба і встановлення розміру на весь екран
@@ -37,16 +38,19 @@ function create() {
   // Створення платформ
   platforms = this.physics.add.staticGroup();
 
-  // Розташовуємо платформу з самого низу екрану
+  // Розташовуємо першу платформу з самого низу екрану
   platforms.create(700, 950, 'ground').setScale(2).refreshBody();
 
- // Додавання зображення house на платформу
- this.add.image(100, 760, 'house');
+  // Розташовуємо другу платформу далі вправо, за межами екрану
+  platforms.create(2200, 950, 'ground').setScale(2).refreshBody(); // Додано другу платформу
 
- // Створення гравця
- player = this.physics.add.sprite(100, 450, 'dude');
- player.setBounce(0.2);
- player.setCollideWorldBounds(false); // Вимкнення обмежень за межами світу гри
+  // Додавання зображення house на першу платформу
+  this.add.image(100, 760, 'house');
+
+  // Створення гравця
+  player = this.physics.add.sprite(100, 450, 'dude');
+  player.setBounce(0.2);
+  player.setCollideWorldBounds(false); // Вимкнення обмежень за межами світу гри
 
   // Колізія гравця з платформами
   this.physics.add.collider(player, platforms);
@@ -58,26 +62,27 @@ function create() {
     frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 3 }),
     frameRate: 10,
     repeat: -1
-});
+  });
 
-this.anims.create({
+  this.anims.create({
     key: 'turn',
     frames: [{ key: 'dude', frame: 4 }],
     frameRate: 20
-});
+  });
 
-this.anims.create({
+  this.anims.create({
     key: 'right',
     frames: this.anims.generateFrameNumbers('dude', { start: 5, end: 8 }),
     frameRate: 10,
     repeat: -1
-});
+  });
+
   // Налаштування камери
   this.cameras.main.setBounds(0, 0, WORLD_WIDTH, 1000); // Встановлення меж камери
   this.physics.world.setBounds(0, 0, WORLD_WIDTH, 1000); // Встановлення меж фізичного світу
 
- // Слідкування камери за гравцем
- this.cameras.main.startFollow(player);
+  // Слідкування камери за гравцем
+  this.cameras.main.startFollow(player);
 }
 
 // Оновлення гри
