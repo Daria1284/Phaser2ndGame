@@ -49,7 +49,7 @@ var config = {
     platforms.create(1000, 500, 'ground1').setScale(2).refreshBody();
     platforms.create(1500, 650, 'ground1').setScale(2).refreshBody();
     platforms.create(2000, 500, 'ground1').setScale(2).refreshBody();
-    platforms.create(2700, 400, 'ground1').setScale(2).refreshBody();
+    platforms.create(2600, 400, 'ground1').setScale(2).refreshBody();
    
     // Додавання зображення house на першу платформу
     this.add.image(100, 760, 'house');
@@ -93,8 +93,8 @@ var config = {
     // Створення та розміщення зображення "star" на верхніх платформах
     const stars = this.physics.add.group({
         key: 'star',
-        repeat: 20, // Кількість зірок (змініть за потребою)
-        setXY: { x: 10, y: 50, stepX: 200 } // Відстань між зірками (змініть за потребою)
+        repeat: 40, // Кількість зірок (змініть за потребою)
+        setXY: { x: 250, y: 50, stepX: 70 } // Відстань між зірками (змініть за потребою)
     });
 
     // Налаштування гравітації для зірок
