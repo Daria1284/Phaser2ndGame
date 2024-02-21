@@ -27,6 +27,7 @@ var config = {
     this.load.spritesheet('dude', 'assets/girl.png', { frameWidth: 32, frameHeight: 48 }); // Завантаження спрайту гравця
     this.load.image('house', 'assets/house.png'); // Завантаження зображення будинка
     this.load.image('ground1', 'assets/platform1.png'); // Завантаження зображення платформи
+    this.load.image('star', 'assets/star.png'); // Завантаження зображення платформи
   }
   // Константа, щоб визначити ширину фону
   const WORLD_WIDTH = 5000; // Змінено ширину світу для відображення додаткової платформи
@@ -89,7 +90,29 @@ var config = {
   
     // Слідкування камери за гравцем
     this.cameras.main.startFollow(player);
-  }
+    // Створення та розміщення зображення "star" на верхніх платформах
+    const stars = this.physics.add.group({
+        key: 'star',
+        repeat: 20, // Кількість зірок (змініть за потребою)
+        setXY: { x: 10, y: 50, stepX: 200 } // Відстань між зірками (змініть за потребою)
+    });
+
+    // Налаштування гравітації для зірок
+    stars.children.iterate(function(star) {
+        star.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
+    });
+
+    // Налаштування колізій для гравця та зірок
+    this.physics.add.collider(stars, platforms);
+    this.physics.add.overlap(player, stars, collectStar, null, this);
+}
+
+// Функція для обробки колізії зірок та гравця
+function collectStar(player, star) {
+    star.disableBody(true, true);
+    // Тут ви можете додати логіку для збору зірок та виконання необхідних дій
+}
+
   
   // Оновлення гри
   function update() {
