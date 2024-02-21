@@ -19,6 +19,9 @@ var config = {
   
   // Ініціалізація гри
   var game = new Phaser.Game(config);
+  var score = 0; // Початковий рахунок гравця
+var scoreText; // Текст рахунку
+var canMove = true; // Змінна, що визначає, чи може гравець рухатися
   
   // Завантаження ресурсів
   function preload() {
@@ -97,41 +100,48 @@ var config = {
         setXY: { x: 250, y: 50, stepX: 70 } // Відстань між зірками (змініть за потребою)
     });
 
-    // Налаштування гравітації для зірок
-    stars.children.iterate(function(star) {
-        star.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
+    // Налаштування властивостей зірок
+    stars.children.iterate(function (child) {
+        child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
     });
 
-    // Налаштування колізій для гравця та зірок
+    // Колізія зірок з платформами
     this.physics.add.collider(stars, platforms);
     this.physics.add.overlap(player, stars, collectStar, null, this);
+    scoreText = this.add.text(16, 16, 'Score: 0', { fontSize: '32px', fill: '#000' });
 }
 
 // Функція для обробки колізії зірок та гравця
 function collectStar(player, star) {
     star.disableBody(true, true);
-    // Тут ви можете додати логіку для збору зірок та виконання необхідних дій
-}
+    score += 10;
+    scoreText.setText('Score: ' + score);
 
-  
-  // Оновлення гри
-  function update() {
-     // Оновлення фону, якщо гравець дійшов до межі екрану
-     if (player.x >= this.cameras.main.worldView.right) {
-      this.add.image(this.cameras.main.worldView.right + 500, 500, 'sky').setDisplaySize(WORLD_WIDTH, 1000);
-    }
-    if (cursors.left.isDown) {
-        player.setVelocityX(-160); // Рух вліво
-        player.anims.play('left', true);
-    } else if (cursors.right.isDown) {
-        player.setVelocityX(160); // Рух вправо
-        player.anims.play('right', true);
-    } else {
-        player.setVelocityX(0); // Зупинка гравця
-        player.anims.play('turn');
+   
     }
   
-    if (cursors.up.isDown && player.body.touching.down) {
-        player.setVelocityY(-380); // Пристріл вгору, тільки коли гравець на платформі
+ // Оновлення гри
+function update() {
+    // Оновлення фону, якщо гравець дійшов до межі екрану
+    if (player.x >= this.cameras.main.worldView.right) {
+        this.add.image(this.cameras.main.worldView.right + 500, 500, 'sky').setDisplaySize(WORLD_WIDTH, 1000);
     }
-  }
+
+    // Перевірка, чи гравець може рухатися
+    if (canMove) {
+        if (cursors.left.isDown) {
+            player.setVelocityX(-160); // Рух вліво
+            player.anims.play('left', true);
+        } else if (cursors.right.isDown) {
+            player.setVelocityX(160); // Рух вправо
+            player.anims.play('right', true);
+        } else {
+            player.setVelocityX(0); // Зупинка гравця
+            player.anims.play('turn');
+        }
+
+        if (cursors.up.isDown && player.body.touching.down) {
+            player.setVelocityY(-380); // Пристріл вгору, тільки коли гравець на платформі
+        }
+    }
+}
