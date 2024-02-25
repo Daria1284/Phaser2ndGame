@@ -1,8 +1,8 @@
 // Конфігурація гри
 var config = {
     type: Phaser.AUTO,
-    width: 1000,
-    height: 1000,
+    width: window.innerWidth,
+    height: window.innerHeight,
     physics: {
         default: 'arcade',
         arcade: {
@@ -44,18 +44,18 @@ var canMove = true; // Змінна, що визначає, чи може гра
     platforms = this.physics.add.staticGroup();
   
     // Розташовуємо першу платформу з самого низу екрану
-    platforms.create(700, 950, 'ground').setScale(2).refreshBody();
+    platforms.create(700, 1100, 'ground').setScale(2).refreshBody();
   
     // Розташовуємо другу платформу далі вправо, за межами екрану
-    platforms.create(2200, 950, 'ground').setScale(2).refreshBody(); // Додано другу платформу
-    platforms.create(700, 650, 'ground1').setScale(2).refreshBody(); 
-    platforms.create(1000, 500, 'ground1').setScale(2).refreshBody();
-    platforms.create(1500, 650, 'ground1').setScale(2).refreshBody();
-    platforms.create(2000, 500, 'ground1').setScale(2).refreshBody();
-    platforms.create(2600, 400, 'ground1').setScale(2).refreshBody();
+    platforms.create(2200, 1100, 'ground').setScale(2).refreshBody(); // Додано другу платформу
+    platforms.create(700, 800, 'ground1').setScale(2).refreshBody(); 
+    platforms.create(1000, 600, 'ground1').setScale(2).refreshBody();
+    platforms.create(1500, 800, 'ground1').setScale(2).refreshBody();
+    platforms.create(2000, 650, 'ground1').setScale(2).refreshBody();
+    platforms.create(2600, 550, 'ground1').setScale(2).refreshBody();
    
     // Додавання зображення house на першу платформу
-    this.add.image(100, 760, 'house');
+    this.add.image(100, 900, 'house');
   
     // Створення гравця
     player = this.physics.add.sprite(100, 450, 'dude');
@@ -87,9 +87,9 @@ var canMove = true; // Змінна, що визначає, чи може гра
       repeat: -1
     });
   
-    // Налаштування камери
-    this.cameras.main.setBounds(0, 0, WORLD_WIDTH, 1000); // Встановлення меж камери
-    this.physics.world.setBounds(0, 0, WORLD_WIDTH, 1000); // Встановлення меж фізичного світу
+   // Налаштування камери
+this.cameras.main.setBounds(0, 0, WORLD_WIDTH, window.innerHeight);
+this.physics.world.setBounds(0, 0, WORLD_WIDTH, window.innerHeight);
   
     // Слідкування камери за гравцем
     this.cameras.main.startFollow(player);
