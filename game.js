@@ -37,6 +37,7 @@ function preload() {
     this.load.image('house', 'assets/house.png'); // Завантаження зображення будинка
     this.load.image('ground1', 'assets/platform1.png'); // Завантаження зображення платформи
     this.load.image('star', 'assets/star.png'); // Завантаження зображення платформи
+    this.load.spritesheet('dude1', 'assets/enemy.png', { frameWidth: 32, frameHeight: 48 }); // Завантаження спрайту гравця
 }
 // Константа, щоб визначити ширину фону
 const WORLD_WIDTH = 5000; // Змінено ширину світу для відображення додаткової платформи
@@ -67,9 +68,16 @@ function create() {
     player = this.physics.add.sprite(100, 450, 'dude');
     player.setBounce(0.2);
     player.setCollideWorldBounds(false); // Вимкнення обмежень за межами світу гри
+    // Створення гравця 2
+    player1 = this.physics.add.sprite(100, 450, 'dude1');
+    player1.setBounce(0.2);
+    player1.setCollideWorldBounds(false); // Вимкнення обмежень за межами світу гри
 
     // Колізія гравця з платформами
     this.physics.add.collider(player, platforms);
+    cursors = this.input.keyboard.createCursorKeys();
+    // Колізія гравця з платформами
+    this.physics.add.collider(player1, platforms);
     cursors = this.input.keyboard.createCursorKeys();
 
     // Налаштування анімацій гравця
