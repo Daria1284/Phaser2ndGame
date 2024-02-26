@@ -22,10 +22,13 @@ var game = new Phaser.Game(config);
 var score = 0; // Початковий рахунок гравця
 var scoreText; // Текст рахунку
 var canMove = true; // Змінна, що визначає, чи може гравець рухатися
+
+
 // Функція для оновлення розмірів гри при зміні розмірів вікна браузера
 window.addEventListener('resize', function () {
     game.scale.resize(window.innerWidth, window.innerHeight);
 });
+
 // Завантаження ресурсів
 function preload() {
     this.load.image('sky', 'assets/sky.png'); // Завантаження зображення неба
