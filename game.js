@@ -22,7 +22,7 @@ var game = new Phaser.Game(config);
 var score = 0; // Початковий рахунок гравця
 var scoreText; // Текст рахунку
 var canMove = true; // Змінна, що визначає, чи може гравець рухатися
-
+var worldWidth = 10000;
 
 // Функція для оновлення розмірів гри при зміні розмірів вікна браузера
 window.addEventListener('resize', function () {
@@ -38,28 +38,36 @@ function preload() {
     this.load.image('ground1', 'assets/platform1.png'); // Завантаження зображення платформи
     this.load.image('star', 'assets/star.png'); // Завантаження зображення платформи
     this.load.spritesheet('dude1', 'assets/enemy.png', { frameWidth: 32, frameHeight: 48 }); // Завантаження спрайту гравця
+    this.load.image('fon1', 'assets/fon+.jpg'); // Завантаження зображення неба
 }
 // Константа, щоб визначити ширину фону
-const WORLD_WIDTH = 5000; // Змінено ширину світу для відображення додаткової платформи
+//const WORLD_WIDTH = 5000; // Змінено ширину світу для відображення додаткової платформи
 
 /// Створення гри
 function create() {
+    //Створюємо фон з плиткою
+    this.add.tileSprite(0,0,worldWidth,1080,'fon1').setOrigin(0,0);
     // Додавання зображення неба і встановлення розміру на весь екран
-    this.add.image(500, 500, 'sky').setDisplaySize(WORLD_WIDTH, 1000);
+   // this.add.image(500, 500, 'sky').setDisplaySize(WORLD_WIDTH, 1000);
 
     // Створення платформ
     platforms = this.physics.add.staticGroup();
+    //Додаємо землю на всю ширинуекрану
+    for(var x = 0; x<worldWidth; x=x+800){
+        console.log(x)
+        platforms.create(x,1080-120,'ground').setOrigin(0,0).refreshBody();
+    }
 
     // Розташовуємо першу платформу з самого низу екрану
-    platforms.create(700, 1100, 'ground').setScale(2).refreshBody();
+    //platforms.create(700, 1100, 'ground').setScale(2).refreshBody();
 
     // Розташовуємо другу платформу далі вправо, за межами екрану
-    platforms.create(2200, 1100, 'ground').setScale(2).refreshBody(); // Додано другу платформу
+   // platforms.create(2200, 1100, 'ground').setScale(2).refreshBody(); // Додано другу платформу
     platforms.create(700, 800, 'ground1').setScale(2).refreshBody();
-    platforms.create(1000, 600, 'ground1').setScale(2).refreshBody();
+     platforms.create(1000, 600, 'ground1').setScale(2).refreshBody();
     platforms.create(1500, 800, 'ground1').setScale(2).refreshBody();
     platforms.create(2000, 650, 'ground1').setScale(2).refreshBody();
-    platforms.create(2600, 550, 'ground1').setScale(2).refreshBody();
+     platforms.create(2600, 550, 'ground1').setScale(2).refreshBody();
 
     // Додавання зображення house на першу платформу
     this.add.image(100, 900, 'house');
@@ -102,8 +110,8 @@ function create() {
     });
 
     // Налаштування камери
-    this.cameras.main.setBounds(0, 0, WORLD_WIDTH, window.innerHeight);
-    this.physics.world.setBounds(0, 0, WORLD_WIDTH, window.innerHeight);
+    this.cameras.main.setBounds(0, 0, worldWidth, window.innerHeight);
+    this.physics.world.setBounds(0, 0, worldWidth, window.innerHeight);
 
     // Слідкування камери за гравцем
     this.cameras.main.startFollow(player);
@@ -158,4 +166,5 @@ function update() {
             player.setVelocityY(-380); // Пристріл вгору, тільки коли гравець на платформі
         }
     }
-}
+
+ }
