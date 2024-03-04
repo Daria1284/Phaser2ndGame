@@ -41,6 +41,7 @@ function preload() {
     this.load.image('fon1', 'assets/fon+.jpg'); // Завантаження зображення неба
     this.load.image('stone', 'assets/stone.png'); // Завантаження зображення каміння
     this.load.image('tree', 'assets/tree.png'); // Завантаження зображення дерева
+    this.load.image('bush', 'assets/bush.png'); // Завантаження зображення куща
 }
 // Константа, щоб визначити ширину фону
 //const WORLD_WIDTH = 5000; // Змінено ширину світу для відображення додаткової платформи
@@ -123,7 +124,7 @@ function create() {
 
  // Створення платформ
  stones = this.physics.add.staticGroup();
- //Додаємо землю на всю ширину екрану
+ //Додаємо каміння на всю ширину екрану
  for(var x = 400; x<worldWidth; x=x+Phaser.Math.FloatBetween(900, 800)){
      console.log('stone x-'+ x)
      stones.create(x,1080-120,'stone').setOrigin(0,1).refreshBody();
@@ -131,13 +132,19 @@ function create() {
 
 // Створення платформ
 trees = this.physics.add.staticGroup();
-//Додаємо землю на всю ширину екрану
+//Додаємо дерев на всю ширину екрану
 for(var x = 700; x<worldWidth; x=x+Phaser.Math.FloatBetween(2000, 800)){
     console.log('stone x-'+ x)
     stones.create(x,1080-120,'tree').setOrigin(0,1).refreshBody();
 }
 
-
+// Створення платформ
+bushes = this.physics.add.staticGroup();
+//Додаємо кущів на всю ширину екрану
+for(var x = 900; x<worldWidth; x=x+Phaser.Math.FloatBetween(1500, 800)){
+    console.log('stone x-'+ x)
+    bushes.create(x,1080-120,'bush').setOrigin(0,1).refreshBody();
+}
     // Створення та розміщення зображення "star" на верхніх платформах
     const stars = this.physics.add.group({
         key: 'star',
