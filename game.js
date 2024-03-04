@@ -129,20 +129,23 @@ function create() {
      console.log('stone x-'+ x)
      stones.create(x,1080-120,'stone').setOrigin(0,1).refreshBody();
  }
+ //Колізія гравця з камінням
+ this.physics.add.collider(player, stones);
+
 
 // Створення платформ
 trees = this.physics.add.staticGroup();
 //Додаємо дерев на всю ширину екрану
 for(var x = 700; x<worldWidth; x=x+Phaser.Math.FloatBetween(2000, 800)){
-    console.log('stone x-'+ x)
-    stones.create(x,1080-120,'tree').setOrigin(0,1).refreshBody();
+    console.log('x-'+ x)
+    trees.create(x,1080-120,'tree').setOrigin(0,1).refreshBody();
 }
 
 // Створення платформ
 bushes = this.physics.add.staticGroup();
 //Додаємо кущів на всю ширину екрану
 for(var x = 900; x<worldWidth; x=x+Phaser.Math.FloatBetween(1500, 800)){
-    console.log('stone x-'+ x)
+    console.log(' x-'+ x)
     bushes.create(x,1080-120,'bush').setOrigin(0,1).refreshBody();
 }
     // Створення та розміщення зображення "star" на верхніх платформах
@@ -182,8 +185,15 @@ function update() {
     if (player.x >= this.cameras.main.worldView.right) {
         this.add.image(this.cameras.main.worldView.right + 500, 500, 'sky').setDisplaySize(WORLD_WIDTH, 1000);
     }
-
-    // Перевірка, чи гравець може рухатися
+   // Додайте логіку колізії гравця з каменями
+   this.physics.world.collide(player, stones, function(player, stone) {
+    // Перевірка, чи гравець "на платформі" (за умови, що камінь не рухається вгору)
+    if (player.body.y < stone.body.y && player.body.y + player.body.height < stone.body.y + stone.body.height) {
+        player.setVelocityY(0);
+        player.setPosition(player.x, stone.body.y - player.body.height);
+    }
+});
+ // Перевірка, чи гравець може рухатися
     if (canMove) {
         if (cursors.left.isDown) {
             player.setVelocityX(-160); // Рух вліво
