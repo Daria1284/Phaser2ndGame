@@ -22,7 +22,7 @@ var game = new Phaser.Game(config);
 var score = 0; // Початковий рахунок гравця
 var scoreText; // Текст рахунку
 var canMove = true; // Змінна, що визначає, чи може гравець рухатися
-var worldWidth = 10000;
+var worldWidth = 9600;
 
 // Функція для оновлення розмірів гри при зміні розмірів вікна браузера
 window.addEventListener('resize', function () {
@@ -39,6 +39,8 @@ function preload() {
     this.load.image('star', 'assets/star.png'); // Завантаження зображення платформи
     this.load.spritesheet('dude1', 'assets/enemy.png', { frameWidth: 32, frameHeight: 48 }); // Завантаження спрайту гравця
     this.load.image('fon1', 'assets/fon+.jpg'); // Завантаження зображення неба
+    this.load.image('stone', 'assets/stone.png'); // Завантаження зображення каміння
+    this.load.image('tree', 'assets/tree.png'); // Завантаження зображення дерева
 }
 // Константа, щоб визначити ширину фону
 //const WORLD_WIDTH = 5000; // Змінено ширину світу для відображення додаткової платформи
@@ -115,12 +117,35 @@ function create() {
 
     // Слідкування камери за гравцем
     this.cameras.main.startFollow(player);
+    
+
+
+
+ // Створення платформ
+ stones = this.physics.add.staticGroup();
+ //Додаємо землю на всю ширину екрану
+ for(var x = 400; x<worldWidth; x=x+Phaser.Math.FloatBetween(900, 800)){
+     console.log('stone x-'+ x)
+     stones.create(x,1080-120,'stone').setOrigin(0,1).refreshBody();
+ }
+
+// Створення платформ
+trees = this.physics.add.staticGroup();
+//Додаємо землю на всю ширину екрану
+for(var x = 700; x<worldWidth; x=x+Phaser.Math.FloatBetween(2000, 800)){
+    console.log('stone x-'+ x)
+    stones.create(x,1080-120,'tree').setOrigin(0,1).refreshBody();
+}
+
+
     // Створення та розміщення зображення "star" на верхніх платформах
     const stars = this.physics.add.group({
         key: 'star',
-        repeat: 40, // Кількість зірок (змініть за потребою)
-        setXY: { x: 250, y: 50, stepX: 70 } // Відстань між зірками (змініть за потребою)
+        repeat: 40,
+         // Кількість зірок 
+        setXY: { x: 250, y: 50, stepX: 70 } // Відстань між зірками 
     });
+
 
     // Налаштування властивостей зірок
     stars.children.iterate(function (child) {
@@ -141,6 +166,8 @@ function collectStar(player, star) {
 
 
 }
+
+
 
 // Оновлення гри
 function update() {
