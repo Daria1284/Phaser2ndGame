@@ -160,8 +160,9 @@ for(var x = 900; x<worldWidth; x=x+Phaser.Math.FloatBetween(1500, 800)){
     // Налаштування властивостей зірок
     stars.children.iterate(function (child) {
         child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
+        child.setGravityY(300); // Додаємо гравітацію для падіння зірок
     });
-
+    this.physics.add.collider(stones, stars); // Колізія каменів з зірками
     // Колізія зірок з платформами
     this.physics.add.collider(stars, platforms);
     this.physics.add.overlap(player, stars, collectStar, null, this);
