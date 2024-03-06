@@ -154,7 +154,7 @@ bushes = this.physics.add.staticGroup();
 //Додаємо кущів на всю ширину екрану
 for(var x = 900; x<worldWidth; x=x+Phaser.Math.FloatBetween(1500, 800)){
     console.log(' x-'+ x)
-    bushes.create(x,1080-120,'bush').setOrigin(0,1).refreshBody();
+    bushes.create(x,1080-120,'bush').setOrigin(0,1).setDepth(5).refreshBody();
 }
     // Створення та розміщення зображення "star" на верхніх платформах
     const stars = this.physics.add.group({
