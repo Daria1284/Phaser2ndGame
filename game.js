@@ -43,6 +43,10 @@ function preload() {
     this.load.image('tree', 'assets/tree.png'); // Завантаження зображення дерева
     this.load.image('bush', 'assets/bush.png'); // Завантаження зображення куща
     this.load.image('mushroom', 'assets/mushroom.png'); // Завантаження зображення куща
+    this.load.image('platformStart', 'assets/platformStart.png'); // Завантаження зображення початкової платформи
+    this.load.image('platformOne', 'assets/platformOne.png'); // Завантаження зображення середньої платформи
+    this.load.image('platformFinish', 'assets/platformFinish.png'); // Завантаження зображення кінцевої платформи
+   
 }
 // Константа, щоб визначити ширину фону
 //const WORLD_WIDTH = 5000; // Змінено ширину світу для відображення додаткової платформи
@@ -51,27 +55,28 @@ function preload() {
 function create() {
     //Створюємо фон з плиткою
     this.add.tileSprite(0,0,worldWidth,1080,'fon1').setOrigin(0,0);
-    // Додавання зображення неба і встановлення розміру на весь екран
-   // this.add.image(500, 500, 'sky').setDisplaySize(WORLD_WIDTH, 1000);
+    
 
     // Створення платформ
     platforms = this.physics.add.staticGroup();
-    //Додаємо землю на всю ширинуекрану
+    //Додаємо землю на всю ширину екрану
     for(var x = 0; x<worldWidth; x=x+800){
         console.log(x)
         platforms.create(x,1080-120,'ground').setOrigin(0,0).refreshBody();
     }
+//Додавання верхніх платформ
+for(var x=0; x<worldWidth; x=x + Phaser.Math.Between(400,500)){
+    var y = Phaser.Math.FloatBetween(186,93*7)
 
-    // Розташовуємо першу платформу з самого низу екрану
-    //platforms.create(700, 1100, 'ground').setScale(2).refreshBody();
+    platforms.create(x,y,'platformStart');
 
-    // Розташовуємо другу платформу далі вправо, за межами екрану
-   // platforms.create(2200, 1100, 'ground').setScale(2).refreshBody(); // Додано другу платформу
-    platforms.create(700, 800, 'ground1').setScale(2).refreshBody();
-     platforms.create(1000, 600, 'ground1').setScale(2).refreshBody();
-    platforms.create(1500, 800, 'ground1').setScale(2).refreshBody();
-    platforms.create(2000, 650, 'ground1').setScale(2).refreshBody();
-     platforms.create(2600, 550, 'ground1').setScale(2).refreshBody();
+     var i;
+     for(i=1; i<Phaser.Math.Between(0,5);i++){
+        platforms.create(x+128*i,y,'platformOne');
+     }
+     platforms.create(x+128*i,y,'platformFinish');
+}
+
 
     // Додавання зображення house на першу платформу
     this.add.image(100, 900, 'house');
