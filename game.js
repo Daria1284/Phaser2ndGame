@@ -42,6 +42,7 @@ function preload() {
     this.load.image('stone', 'assets/stone.png'); // Завантаження зображення каміння
     this.load.image('tree', 'assets/tree.png'); // Завантаження зображення дерева
     this.load.image('bush', 'assets/bush.png'); // Завантаження зображення куща
+    this.load.image('mushroom', 'assets/mushroom.png'); // Завантаження зображення куща
 }
 // Константа, щоб визначити ширину фону
 //const WORLD_WIDTH = 5000; // Змінено ширину світу для відображення додаткової платформи
@@ -119,7 +120,13 @@ function create() {
     // Слідкування камери за гравцем
     this.cameras.main.startFollow(player);
     
-
+// Створення платформ
+mushrooms = this.physics.add.staticGroup();
+//Додаємо грибочки на всю ширину екрану
+for(var x = 870; x<worldWidth; x=x+Phaser.Math.FloatBetween(1500, 800)){
+    console.log(' x-'+ x)
+    mushrooms.create(x,1080-120,'mushroom').setOrigin(0,1).refreshBody();
+}
 
 
  // Створення платформ
