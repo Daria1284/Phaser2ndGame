@@ -80,6 +80,7 @@ function create() {
     player = this.physics.add.sprite(100, 450, 'dude');
     player.setBounce(0.2);
     player.setCollideWorldBounds(false); // Вимкнення обмежень за межами світу гри
+    player.setDepth(5)
     // Створення гравця 2
     player1 = this.physics.add.sprite(100, 450, 'dude1');
     player1.setBounce(0.2);
@@ -125,7 +126,7 @@ mushrooms = this.physics.add.staticGroup();
 //Додаємо грибочки на всю ширину екрану
 for(var x = 870; x<worldWidth; x=x+Phaser.Math.FloatBetween(1500, 800)){
     console.log(' x-'+ x)
-    mushrooms.create(x,1080-120,'mushroom').setOrigin(0,1).refreshBody();
+    mushrooms.create(x,1080-120,'mushroom').setOrigin(0,1).setDepth(Phaser.Math.FloatBetween(0,10)).refreshBody();
 }
 
 
