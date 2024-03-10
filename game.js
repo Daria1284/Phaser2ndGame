@@ -197,7 +197,7 @@ function collectStar(player, star) {
 function update() {
     // Оновлення фону, якщо гравець дійшов до межі екрану
     if (player.x >= this.cameras.main.worldView.right) {
-        this.add.image(this.cameras.main.worldView.right + 500, 500, 'sky').setDisplaySize(WORLD_WIDTH, 1000);
+        this.add.image(this.cameras.main.worldView.right + 500, 500, 'sky').setDisplaySize(WORLD_WIDTH, 1080);
     }
    // Додайте логіку колізії гравця з каменями
    this.physics.world.collide(player, stones, function(player, stone) {
