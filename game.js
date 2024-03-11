@@ -164,7 +164,7 @@ for(var x = 900; x<worldWidth; x=x+Phaser.Math.FloatBetween(1500, 800)){
     // Створення та розміщення зображення "star" на верхніх платформах
     const stars = this.physics.add.group({
         key: 'star',
-        repeat: 40,
+        repeat: 100,
          // Кількість зірок 
         setXY: { x: 250, y: 50, stepX: 70 } // Відстань між зірками 
     });
