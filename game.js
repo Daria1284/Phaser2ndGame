@@ -65,8 +65,8 @@ function create() {
         platforms.create(x,1080-120,'ground').setOrigin(0,0).refreshBody();
     }
 //Додавання верхніх платформ
-for(var x=0; x<worldWidth; x=x + Phaser.Math.Between(400,500)){
-    var y = Phaser.Math.FloatBetween(186,93*7)
+for(var x=0; x<worldWidth; x=x + Phaser.Math.Between(600,700)){
+    var y = Phaser.Math.FloatBetween(700,93*8)
 
     platforms.create(x,y,'platformStart');
 
