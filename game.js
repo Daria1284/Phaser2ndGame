@@ -175,10 +175,15 @@ powers.children.iterate(function (child) {
 this.physics.add.collider(stones, powers); // Колізія каменів з power
 this.physics.add.collider(powers, platforms);
 this.physics.add.overlap(player, powers, collectPower, null, this);
+// Функція для обробки колізії з елементами "power"
 function collectPower(player, power) {
     power.disableBody(true, true);
-  
+    // Збільшення "Live" при збиранні елементів
+    live += 1;
+    liveText.setText('Live: ' + live); // Оновлення тексту "Live"
 }
+// Створення тексту "Live"
+liveText = this.add.text(window.innerWidth - 16, 16, 'Live: 0', { fontSize: '32px', fill: '#000' }).setOrigin(1, 0);
 
     // Створення та розміщення зображення "star" на верхніх платформах
     const stars = this.physics.add.group({
