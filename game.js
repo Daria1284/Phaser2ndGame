@@ -24,6 +24,7 @@ var scoreText; // Текст рахунку
 var canMove = true; // Змінна, що визначає, чи може гравець рухатися
 var worldWidth = 9600;
 var powers;
+var live = 3;
 // Функція для оновлення розмірів гри при зміні розмірів вікна браузера
 window.addEventListener('resize', function () {
     game.scale.resize(window.innerWidth, window.innerHeight);
@@ -178,9 +179,12 @@ this.physics.add.overlap(player, powers, collectPower, null, this);
 // Функція для обробки колізії з елементами "power"
 function collectPower(player, power) {
     power.disableBody(true, true);
-    // Збільшення "Live" при збиранні елементів
-    live += 1;
-    liveText.setText('Live: ' + live); // Оновлення тексту "Live"
+    
+    if (canMove) {
+        // Збільшення "Live" при збиранні елементів
+        live += 1;
+        liveText.setText('Live: ' + live); // Оновлення тексту "Live"
+    }
 }
 // Створення тексту "Live"
 liveText = this.add.text(window.innerWidth - 16, 16, 'Live: 0', { fontSize: '32px', fill: '#000' }).setOrigin(1, 0);
