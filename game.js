@@ -23,7 +23,7 @@ var score = 0; // Початковий рахунок гравця
 var scoreText; // Текст рахунку
 var canMove = true; // Змінна, що визначає, чи може гравець рухатися
 var worldWidth = 9600;
-
+var powers;
 // Функція для оновлення розмірів гри при зміні розмірів вікна браузера
 window.addEventListener('resize', function () {
     game.scale.resize(window.innerWidth, window.innerHeight);
@@ -46,7 +46,7 @@ function preload() {
     this.load.image('platformStart', 'assets/platformStart.png'); // Завантаження зображення початкової платформи
     this.load.image('platformOne', 'assets/platformOne.png'); // Завантаження зображення середньої платформи
     this.load.image('platformFinish', 'assets/platformFinish.png'); // Завантаження зображення кінцевої платформи
-   
+    this.load.image('power', 'assets/power.png'); // Завантаження зображення життя
 }
 // Константа, щоб визначити ширину фону
 //const WORLD_WIDTH = 5000; // Змінено ширину світу для відображення додаткової платформи
@@ -161,6 +161,25 @@ for(var x = 900; x<worldWidth; x=x+Phaser.Math.FloatBetween(1500, 800)){
     console.log(' x-'+ x)
     bushes.create(x,1080-120,'bush').setOrigin(0,1).setDepth(5).refreshBody();
 }
+powers = this.physics.add.group({
+    key: 'power',
+    repeat: 10,
+    setXY: { x: 1000, y: 50, stepX: 1500 }
+});
+
+powers.children.iterate(function (child) {
+    child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
+    child.setGravityY(300);
+});
+
+this.physics.add.collider(stones, powers); // Колізія каменів з power
+this.physics.add.collider(powers, platforms);
+this.physics.add.overlap(player, powers, collectPower, null, this);
+function collectPower(player, power) {
+    power.disableBody(true, true);
+  
+}
+
     // Створення та розміщення зображення "star" на верхніх платформах
     const stars = this.physics.add.group({
         key: 'star',
