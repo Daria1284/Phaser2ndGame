@@ -24,7 +24,7 @@ var scoreText; // Текст рахунку
 var canMove = true; // Змінна, що визначає, чи може гравець рухатися
 var worldWidth = 9600;
 var powers;
-var live = 3;
+var live = 0;
 // Функція для оновлення розмірів гри при зміні розмірів вікна браузера
 window.addEventListener('resize', function () {
     game.scale.resize(window.innerWidth, window.innerHeight);
