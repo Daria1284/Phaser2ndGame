@@ -61,7 +61,7 @@ function create() {
     // Створення платформ
     platforms = this.physics.add.staticGroup();
     //Додаємо землю на всю ширину екрану
-    for(var x = 0; x<worldWidth; x=x+800){
+    for(var x = 0; x<worldWidth; x=x+120){
         console.log(x)
         platforms.create(x,1080-120,'ground').setOrigin(0,0).refreshBody();
     }
@@ -223,10 +223,13 @@ function collectStar(player, star) {
 
 // Оновлення гри
 function update() {
+    scoreText.setPosition(player.x - 100, 16); // Встановлюємо позицію тексту змінюючи `x` координату гравця та зміщуючи його вліво на 100 пікселів
+    liveText.setPosition(player.x - -300, 16); // Встановлюємо позицію тексту змінюючи `x` координату гравця та зміщуючи його вліво на 100 пікселів
     // Оновлення фону, якщо гравець дійшов до межі екрану
     if (player.x >= this.cameras.main.worldView.right) {
         this.add.image(this.cameras.main.worldView.right + 500, 500, 'sky').setDisplaySize(WORLD_WIDTH, 1080);
     }
+  
    // Додайте логіку колізії гравця з каменями
    this.physics.world.collide(player, stones, function(player, stone) {
     // Перевірка, чи гравець "на платформі" (за умови, що камінь не рухається вгору)
