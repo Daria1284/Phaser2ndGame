@@ -187,7 +187,7 @@ function collectPower(player, power) {
     }
 }
 // Створення тексту "Live"
-liveText = this.add.text(window.innerWidth - 16, 16, 'Live: 0', { fontSize: '32px', fill: '#000' }).setOrigin(1, 0);
+liveText = this.add.text(window.innerWidth - 16, 16, 'Live: 0', { fontSize: '32px', fill: '#000' }).setOrigin(1, 0).setScrollFactor(0);
 
     // Створення та розміщення зображення "star" на верхніх платформах
     const stars = this.physics.add.group({
@@ -207,7 +207,7 @@ liveText = this.add.text(window.innerWidth - 16, 16, 'Live: 0', { fontSize: '32p
     // Колізія зірок з платформами
     this.physics.add.collider(stars, platforms);
     this.physics.add.overlap(player, stars, collectStar, null, this);
-    scoreText = this.add.text(16, 16, 'Score: 0', { fontSize: '32px', fill: '#000' });
+    scoreText = this.add.text(16, 16, 'Score: 0', { fontSize: '32px', fill: '#000' }).setOrigin(0,0).setScrollFactor(0);
 }
 
 // Функція для обробки колізії зірок та гравця
@@ -223,8 +223,6 @@ function collectStar(player, star) {
 
 // Оновлення гри
 function update() {
-    scoreText.setPosition(player.x - 100, 16); // Встановлюємо позицію тексту змінюючи `x` координату гравця та зміщуючи його вліво на 100 пікселів
-    liveText.setPosition(player.x - -300, 16); // Встановлюємо позицію тексту змінюючи `x` координату гравця та зміщуючи його вліво на 100 пікселів
     // Оновлення фону, якщо гравець дійшов до межі екрану
     if (player.x >= this.cameras.main.worldView.right) {
         this.add.image(this.cameras.main.worldView.right + 500, 500, 'sky').setDisplaySize(WORLD_WIDTH, 1080);
