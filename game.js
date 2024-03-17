@@ -235,6 +235,13 @@ function createBomb(star) {
     });
     bomb.setCollideWorldBounds(true);
     bomb.setBounce(1);
+    this.physics.add.collider(player, bomb, hitBomb, null, this);
+}
+function hitBomb(player, bomb) {
+    // Зупиніть гравця
+    player.setTint(0xff0000);
+    player.setVelocity(0, 0);
+    canMove = false; // Встановіть canMove в false, щоб гравець більше не міг рухатися
 }
 }
 
