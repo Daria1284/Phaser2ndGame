@@ -215,29 +215,28 @@ function collectStar(player, star) {
     star.disableBody(true, true);
     score += 10;
     scoreText.setText('Score: ' + score);
-
-    // Додавання бомби під час збору зірки
+    createBomb.call(this, star); // Виклик функції для створення бомби
+}
+// Функція для створення бомби
+function createBomb(star) {
+    // Створення бомби під час збору зірки
     var bomb = this.physics.add.image(star.x, star.y - 900, 'bomb').setGravityY(300); // Змінені координати для з'явлення бомби зверху
     this.physics.add.collider(bomb, platforms, function(bomb, platform) {
         bomb.setVelocityY(-600); // Задайте вектор швидкості у протилежному напрямку від вертикальної швидкості платформи
     });
-     // Задання горизонтальної швидкості бомби
-     var direction = Phaser.Math.Between(0, 1) ? 1: -1; // Випадково вибираємо напрямок (-1 або 1)
-     var horizontalSpeed = Phaser.Math.Between(100, 200) * direction; // Горизонтальна швидкість
-     bomb.setVelocityX(horizontalSpeed);
-     
-     // Зміна напрямку бомб, якщо вона зіштовхується з верхніми платформами
+    // Задання горизонтальної швидкості бомби
+    var direction = Phaser.Math.Between(0, 1) ? 1: -1; // Випадково вибираємо напрямок (-1 або 1)
+    var horizontalSpeed = Phaser.Math.Between(100, 200) * direction; // Горизонтальна швидкість
+    bomb.setVelocityX(horizontalSpeed);
+
+    // Зміна напрямку бомб, якщо вона зіштовхується з верхніми платформами
     this.physics.add.collider(bomb, platforms, function(bomb, platform) {
         bomb.setVelocityX(-bomb.body.velocity.x); // Змінюємо напрямок бомби, віднімаючи її поточну горизонтальну швидкість
     });
-    this.physics.world.setBoundsCollision(true, true, true, true); 
-bomb.setCollideWorldBounds(true); 
-bomb.setBounce(1);
-
+    bomb.setCollideWorldBounds(true);
+    bomb.setBounce(1);
 }
-
 }
-                
 
 // Оновлення гри
 function update() {
@@ -272,4 +271,4 @@ function update() {
         }
     }
 
- }  
+ } 
