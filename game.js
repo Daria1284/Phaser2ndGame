@@ -24,7 +24,7 @@ var scoreText; // Текст рахунку
 var canMove = true; // Змінна, що визначає, чи може гравець рухатися
 var worldWidth = 9600;
 var powers;
-var live = 0;
+var life = 5;
 // Функція для оновлення розмірів гри при зміні розмірів вікна браузера
 window.addEventListener('resize', function () {
     game.scale.resize(window.innerWidth, window.innerHeight);
@@ -188,7 +188,7 @@ function collectPower(player, power) {
     }
 }
 // Створення тексту "Live"
-liveText = this.add.text(window.innerWidth - 16, 16, 'Live: 0', { fontSize: '32px', fill: '#000' }).setOrigin(1, 0).setScrollFactor(0);
+liveText = this.add.text(window.innerWidth - 16, 16, showLife(), { fontSize: '40px', fill: '#000' }).setOrigin(1, 0).setScrollFactor(0);
 
     // Створення та розміщення зображення "star" на верхніх платформах
     const stars = this.physics.add.group({
@@ -237,12 +237,7 @@ function createBomb(star) {
     bomb.setBounce(1);
     this.physics.add.collider(player, bomb, hitBomb, null, this);
 }
-function hitBomb(player, bomb) {
-    // Зупиніть гравця
-    player.setTint(0xff0000);
-    player.setVelocity(0, 0);
-    canMove = false; // Встановіть canMove в false, щоб гравець більше не міг рухатися
-}
+
 }
 
 // Оновлення гри
@@ -279,3 +274,16 @@ function update() {
     }
 
  } 
+ function hitBomb(player, bomb) {
+    // Зупиніть гравця
+    player.setTint(0xff0000);
+    player.setVelocity(0, 0);
+    canMove = false; // Встановіть canMove в false, щоб гравець більше не міг рухатися
+}
+function showLife(){
+    var lifeLine = 'Life:'
+     for (var i = 0; i < life; i++) { 
+        lifeLine += '💕' //console.log(life) 
+    } 
+    return lifeLine 
+}
