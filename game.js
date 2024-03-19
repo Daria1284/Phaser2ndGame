@@ -84,14 +84,15 @@ for(var x=0; x<worldWidth; x=x + Phaser.Math.Between(600,700)){
     this.add.image(100, 900, 'house');
 
     // Створення гравця
-    player = this.physics.add.sprite(100, 450, 'dude');
-    player.setBounce(0.2);
-    player.setCollideWorldBounds(false); // Вимкнення обмежень за межами світу гри
-    player.setDepth(5)
-    // Створення гравця 2
-    player1 = this.physics.add.sprite(100, 450, 'dude1');
-    player1.setBounce(0.2);
-    player1.setCollideWorldBounds(false); // Вимкнення обмежень за межами світу гри
+player = this.physics.add.sprite(100, 450, 'dude');
+player.setBounce(0.2);
+player.setCollideWorldBounds(false); // Вимкнення обмежень за межами світу гри
+player.setDepth(5);
+
+// Створення гравця 2
+player1 = this.physics.add.sprite(100, 500, 'dude1');
+player1.setBounce(0.2);
+player1.setCollideWorldBounds(false); // Вимкнення обмежень за межами світу гри
 
     // Колізія гравця з платформами
     this.physics.add.collider(player, platforms);
@@ -237,6 +238,11 @@ function update() {
         player.setPosition(player.x, stone.body.y - player.body.height);
     }
 });
+ // Рух гравця dude1 вправо
+ player1.setVelocityX(160); // Встановлюємо горизонтальну швидкість вправо
+
+ // Опційно: якщо потрібно, ви можете також додати анімацію для гравця dude1
+ player1.anims.play('right', true);
  // Перевірка, чи гравець може рухатися
     if (canMove) {
         if (cursors.left.isDown) {
