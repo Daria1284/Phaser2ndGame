@@ -280,12 +280,14 @@ function createBomb(star) {
 function hitBomb(player, bomb) {
     life -= 1;
     liveText.setText(showLife());
-    console.log('boom');
     player.anims.play('turn');
     if (life === 0) {
-        // Додайте код, який викликає завершення гри
+        canMove = false; // Зупинка можливості рухатися гравця
+        player.setVelocityX(0); // Зупинка руху по горизонталі
+        player.setVelocityY(0); // Зупинка руху по вертикалі
     }
 }
+
 function refreshBody(){
     console.log('game over')
     this.scene.restart();
