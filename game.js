@@ -165,8 +165,8 @@ for(var x = 900; x<worldWidth; x=x+Phaser.Math.FloatBetween(1500, 800)){
 }
 powers = this.physics.add.group({
     key: 'power',
-    repeat: 10,
-    setXY: { x: 1000, y: 50, stepX: 1500 }
+    repeat: 5,
+    setXY: { x: 2000, y: 50, stepX: 1500 }
 });
 
 powers.children.iterate(function (child) {
