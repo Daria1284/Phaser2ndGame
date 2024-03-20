@@ -216,15 +216,56 @@ function create() {
     this.physics.add.overlap(player, stars, collectStar, null, this);
     scoreText = this.add.text(16, 16, 'Score: 0', { fontSize: '32px', fill: '#000' }).setOrigin(0, 0).setScrollFactor(0);
 
-    // Функція для обробки колізії зірок та гравця
     function collectStar(player, star) {
         star.disableBody(true, true);
+    
+        //  Add and update the score
         score += 10;
         scoreText.setText('Score: ' + score);
-        createBomb.call(this, star); // Виклик функції для створення бомби
+        timerOn = true;
+        if (stars.countActive(true) === 0) {
+            //  A new batch of stars to collect
+            stars.children.iterate(function (child) {
+    
+                child.enableBody(true, child.x, 0, true, true);
+    
+            });
+    
+            var x = (player.x < 400) ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
+    
+    
+        }
     }
+    //Додаємо бомби
+    //bombs = this.physics.add.group();
+ bombs = this.physics.add.group({
+        key: 'bomb',
+        repeat: 50,
+        setXY: { x: 250, y: 350, stepX: 100 }
+    });
 
+    bombs.children.iterate(function (child) {
+
+        //  Give each star a slightly different bounce
+        child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8))
+        .setBounce(0.999)
+        .setCollideWorldBounds(true)
+        .setVelocity(Phaser.Math.Between(-200, 200), 100)
+
+    });
+    //  Collide the player and the stars with the platforms
+    this.physics.add.collider(player, platforms);
+    //  this.physics.add.collider(vorog, platforms);
+    this.physics.add.collider(stars, platforms);
+    this.physics.add.collider(bombs, platforms);
+
+    //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
+    this.physics.add.overlap(player, stars, collectStar, null, this);
+    this.physics.add.collider(player, bombs, hitBomb, null, this);
+    // this.physics.add.collider(player, vorog, hitBomb, null, this);
 }
+
+
 
 // Оновлення гри
 function update() {
@@ -265,26 +306,6 @@ function update() {
     }
 
 }
-// Функція для створення бомби
-function createBomb(star) {
-    // Створення бомби під час збору зірки
-    var bomb = this.physics.add.image(star.x, star.y - 900, 'bomb').setGravityY(300); // Змінені координати для з'явлення бомби зверху
-    this.physics.add.collider(bomb, platforms, function (bomb, platform) {
-        bomb.setVelocityY(-600); // Задайте вектор швидкості у протилежному напрямку від вертикальної швидкості платформи
-    });
-    // Задання горизонтальної швидкості бомби
-    var direction = Phaser.Math.Between(0, 1) ? 1 : -1; // Випадково вибираємо напрямок (-1 або 1)
-    var horizontalSpeed = Phaser.Math.Between(100, 200) * direction; // Горизонтальна швидкість
-    bomb.setVelocityX(horizontalSpeed);
-
-    // Зміна напрямку бомб, якщо вона зіштовхується з верхніми платформами
-    this.physics.add.collider(bomb, platforms, function (bomb, platform) {
-        bomb.setVelocityX(-bomb.body.velocity.x); // Змінюємо напрямок бомби, віднімаючи її поточну горизонтальну швидкість
-    });
-    bomb.setCollideWorldBounds(true);
-    bomb.setBounce(1);
-    this.physics.add.collider(player, bomb, function () { hitBomb(player, bomb); }); // Додайте колізію гравця з бомбою та обробник
-}
 // Функція обробки зіткнення гравця з бомбою
 function hitBomb(player, bomb) {
     life -= 1;
@@ -296,7 +317,6 @@ function hitBomb(player, bomb) {
         player.setVelocityY(0); // Зупинка руху по вертикалі
     }
 }
-
 function refreshBody() {
     console.log('game over')
     this.scene.restart();
