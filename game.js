@@ -306,7 +306,6 @@ function update() {
     }
 
 }
-// Функція обробки зіткнення гравця з бомбою
 function hitBomb(player, bomb) {
     life -= 1;
     liveText.setText(showLife());
@@ -315,8 +314,10 @@ function hitBomb(player, bomb) {
         canMove = false; // Зупинка можливості рухатися гравця
         player.setVelocityX(0); // Зупинка руху по горизонталі
         player.setVelocityY(0); // Зупинка руху по вертикалі
+        player.anims.stop(); // Зупинка анімації гравця
     }
 }
+
 function refreshBody() {
     console.log('game over')
     this.scene.restart();
