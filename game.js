@@ -341,7 +341,8 @@ function refreshBody() {
     gameOverText.setVisible(false);
     restartButton.setVisible(false);
 
- 
+    // Оновлення сторінки
+    location.reload();
 }
 
 // Функція для відображення кількості життів
