@@ -313,21 +313,30 @@ function hitBomb(player, bomb) {
         player.setVelocityX(0);
         player.setVelocityY(0);
         player.anims.stop();
-        var gameOverText = this.add.text(window.innerWidth / 2, window.innerHeight / 2, 'Game over', { fontSize: '64px', fill: '#f00' }).setOrigin(0.5);
-        var restartButton = this.add.text(window.innerWidth / 2, window.innerHeight / 2 + 100, 'Restart Game', { fontSize: '32px', fill: '#fff', backgroundColor: '#00f' }).setOrigin(0.5);
+        gameOverText = this.add.text(window.innerWidth / 2, window.innerHeight / 2, 'Game over', { fontSize: '64px', fill: '#f00' }).setOrigin(0.5);
+        restartButton = this.add.text(window.innerWidth / 2, window.innerHeight / 2 + 100, 'Restart Game', { fontSize: '32px', fill: '#fff', backgroundColor: '#00f' }).setOrigin(0.5);
         restartButton.setInteractive();
-        restartButton.on('pointerdown', function () {
-            // Перезапуск сцени
-            this.scene.restart();
-            life = 5
-        }, this);
+        restartButton.on('pointerdown', refreshBody, this); // Посилання на функцію refreshBody
     }
 }
 
 function refreshBody() {
-    console.log('game over')
-    this.scene.restart();
-};
+    // Відновлення кількості життів до початкового значення
+    life = 5;
+    // Активація можливості руху гравця
+    canMove = true;
+    // Встановлення початкової позиції гравця
+    player.setX(100);
+    player.setY(450);
+    // Встановлення початкової швидкості гравця
+    player.setVelocity(0);
+    // Відновлення анімації гравця
+    player.anims.play('turn');
+    // Приховання тексту "Game over" та кнопки "Restart Game"
+    gameOverText.setVisible(false);
+    restartButton.setVisible(false);
+}
+
 
 // Функція для відображення кількості життів
 function showLife() {
