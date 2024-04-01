@@ -321,25 +321,7 @@ function hitBomb(player, bomb) {
     }
 }
 function refreshBody() {
-    // Відновлення кількості життів до початкового значення
-    life = 5;
-    // Оновлення тексту життя
-    liveText.setText(showLife());
-    // Оновлення тексту рахунку
-    score = 0;
-    scoreText.setText('Score: 0');
-    // Активація можливості руху гравця
-    canMove = true;
-    // Встановлення початкової позиції гравця
-    player.setX(100);
-    player.setY(450);
-    // Встановлення початкової швидкості гравця
-    player.setVelocity(0);
-    // Відновлення анімації гравця
-    player.anims.play('turn');
-    // Приховання тексту "Game over" та кнопки "Restart Game"
-    gameOverText.setVisible(false);
-    restartButton.setVisible(false);
+
 
     // Оновлення сторінки
     location.reload();
