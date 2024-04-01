@@ -313,8 +313,10 @@ function hitBomb(player, bomb) {
         player.setVelocityX(0); // Зупинка руху по горизонталі
         player.setVelocityY(0); // Зупинка руху по вертикалі
         player.anims.stop(); // Зупинка анімації гравця
+        this.add.text(window.innerWidth / 2, window.innerHeight / 2, 'Game over', { fontSize: '64px', fill: '#f00' }).setOrigin(0.5);
     }
 }
+
 
 function refreshBody() {
     console.log('game over')
