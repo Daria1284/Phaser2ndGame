@@ -309,25 +309,26 @@ function hitBomb(player, bomb) {
     liveText.setText(showLife());
     player.anims.play('turn');
     if (life === 0) {
-        canMove = false; // Зупинка можливості рухатися гравця
-        player.setVelocityX(0); // Зупинка руху по горизонталі
-        player.setVelocityY(0); // Зупинка руху по вертикалі
-        player.anims.stop(); // Зупинка анімації гравця
+        canMove = false;
+        player.setVelocityX(0);
+        player.setVelocityY(0);
+        player.anims.stop();
         var gameOverText = this.add.text(window.innerWidth / 2, window.innerHeight / 2, 'Game over', { fontSize: '64px', fill: '#f00' }).setOrigin(0.5);
         var restartButton = this.add.text(window.innerWidth / 2, window.innerHeight / 2 + 100, 'Restart Game', { fontSize: '32px', fill: '#fff', backgroundColor: '#00f' }).setOrigin(0.5);
-        restartButton.setInteractive(); // Зробимо кнопку інтерактивною
+        restartButton.setInteractive();
         restartButton.on('pointerdown', function () {
             // Перезапуск сцени
             this.scene.restart();
+            life = 5
         }, this);
     }
 }
-
 
 function refreshBody() {
     console.log('game over')
     this.scene.restart();
 };
+
 // Функція для відображення кількості життів
 function showLife() {
     var lifeLine = 'Life:';
