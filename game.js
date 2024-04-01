@@ -240,7 +240,7 @@ function create() {
     //bombs = this.physics.add.group();
  bombs = this.physics.add.group({
         key: 'bomb',
-        repeat: 50,
+        repeat: 10,
         setXY: { x: 250, y: 350, stepX: 100 }
     });
 
@@ -285,8 +285,7 @@ function update() {
     // Рух гравця dude1 вправо
     player1.setVelocityX(160); // Встановлюємо горизонтальну швидкість вправо
 
-    // Опційно: якщо потрібно, ви можете також додати анімацію для гравця dude1
-    //player1.anims.play('right', true);
+   
     // Перевірка, чи гравець може рухатися
     if (canMove) {
         if (cursors.left.isDown) {
