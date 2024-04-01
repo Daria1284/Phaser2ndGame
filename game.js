@@ -316,13 +316,18 @@ function hitBomb(player, bomb) {
         gameOverText = this.add.text(window.innerWidth / 2, window.innerHeight / 2, 'Game over', { fontSize: '64px', fill: '#f00' }).setOrigin(0.5);
         restartButton = this.add.text(window.innerWidth / 2, window.innerHeight / 2 + 100, 'Restart Game', { fontSize: '32px', fill: '#fff', backgroundColor: '#00f' }).setOrigin(0.5);
         restartButton.setInteractive();
-        restartButton.on('pointerdown', refreshBody, this); // Посилання на функцію refreshBody
+        restartButton.on('pointerdown', refreshBody); // Виправлено виклик функції refreshBody
+
     }
 }
-
 function refreshBody() {
     // Відновлення кількості життів до початкового значення
     life = 5;
+    // Оновлення тексту життя
+    liveText.setText(showLife());
+    // Оновлення тексту рахунку
+    score = 0;
+    scoreText.setText('Score: 0');
     // Активація можливості руху гравця
     canMove = true;
     // Встановлення початкової позиції гравця
@@ -335,8 +340,9 @@ function refreshBody() {
     // Приховання тексту "Game over" та кнопки "Restart Game"
     gameOverText.setVisible(false);
     restartButton.setVisible(false);
-}
 
+ 
+}
 
 // Функція для відображення кількості життів
 function showLife() {
