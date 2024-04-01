@@ -313,7 +313,13 @@ function hitBomb(player, bomb) {
         player.setVelocityX(0); // Зупинка руху по горизонталі
         player.setVelocityY(0); // Зупинка руху по вертикалі
         player.anims.stop(); // Зупинка анімації гравця
-        this.add.text(window.innerWidth / 2, window.innerHeight / 2, 'Game over', { fontSize: '64px', fill: '#f00' }).setOrigin(0.5);
+        var gameOverText = this.add.text(window.innerWidth / 2, window.innerHeight / 2, 'Game over', { fontSize: '64px', fill: '#f00' }).setOrigin(0.5);
+        var restartButton = this.add.text(window.innerWidth / 2, window.innerHeight / 2 + 100, 'Restart Game', { fontSize: '32px', fill: '#fff', backgroundColor: '#00f' }).setOrigin(0.5);
+        restartButton.setInteractive(); // Зробимо кнопку інтерактивною
+        restartButton.on('pointerdown', function () {
+            // Перезапуск сцени
+            this.scene.restart();
+        }, this);
     }
 }
 
