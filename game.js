@@ -304,7 +304,6 @@ function update() {
             player.setVelocityY(-380); // Пристріл вгору, тільки коли гравець на платформі
         }
     }
-
 }
 function hitBomb(player, bomb) {
     life -= 1;
