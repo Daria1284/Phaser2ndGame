@@ -313,8 +313,8 @@ function hitBomb(player, bomb) {
         player.setVelocityX(0);
         player.setVelocityY(0);
         player.anims.stop();
-        gameOverText = this.add.text(window.innerWidth / 2, window.innerHeight / 2, 'Game over', { fontSize: '64px', fill: '#f00' }).setOrigin(0.5);
-        restartButton = this.add.text(window.innerWidth / 2, window.innerHeight / 2 + 100, 'Restart Game', { fontSize: '32px', fill: '#fff', backgroundColor: '#00f' }).setOrigin(0.5);
+        gameOverText = this.add.text(window.innerWidth / 2, window.innerHeight / 2, 'Game over', { fontSize: '64px', fill: '#f00' }).setOrigin(0.5).setScrollFactor(0);
+        restartButton = this.add.text(window.innerWidth / 2, window.innerHeight / 2 + 100, 'Restart Game', { fontSize: '32px', fill: '#fff', backgroundColor: '#00f' }).setOrigin(0.5).setScrollFactor(0);
         restartButton.setInteractive();
         restartButton.on('pointerdown', refreshBody); // Виправлено виклик функції refreshBody
 
