@@ -274,18 +274,19 @@ function update() {
         this.add.image(this.cameras.main.worldView.right + 500, 500, 'sky').setDisplaySize(WORLD_WIDTH, 1080);
     }
 
-    // Додайте логіку колізії гравця з каменями
-    this.physics.world.collide(player, stones, function (player, stone) {
-        // Перевірка, чи гравець "на платформі" (за умови, що камінь не рухається вгору)
-        if (player.body.y < stone.body.y && player.body.y + player.body.height < stone.body.y + stone.body.height) {
-            player.setVelocityY(0);
-            player.setPosition(player.x, stone.body.y - player.body.height);
-        }
-    });
     // Рух гравця dude1 вправо
     player1.setVelocityX(160); // Встановлюємо горизонтальну швидкість вправо
 
-   
+    // Рух ворога за гравцем
+    var dx = player.x - player1.x;
+    var dy = player.y - player1.y;
+
+    // Встановлення швидкості ворога в напрямку гравця
+    var angle = Math.atan2(dy, dx);
+    var speed = 150;
+    player1.setVelocityX(Math.cos(angle) * speed);
+    player1.setVelocityY(Math.sin(angle) * speed);
+
     // Перевірка, чи гравець може рухатися
     if (canMove) {
         if (cursors.left.isDown) {
@@ -304,6 +305,7 @@ function update() {
         }
     }
 }
+
 function hitBomb(player, bomb) {
     life -= 1;
     liveText.setText(showLife());
