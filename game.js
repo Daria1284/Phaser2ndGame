@@ -319,6 +319,11 @@ function hitBomb(player, bomb) {
         player.setVelocityY(0); // Зупиняємо вертикальний рух
         player.anims.stop(); // Зупиняємо відтворення анімації
 
+        // Зупинка руху ворога
+        player1.setVelocityX(0); // Зупиняємо горизонтальний рух
+        player1.setVelocityY(0); // Зупиняємо вертикальний рух
+        player1.anims.stop(); // Зупиняємо відтворення анімації
+
         gameOverText = this.add.text(window.innerWidth / 2, window.innerHeight / 2, 'Game over', { fontSize: '64px', fill: '#f00' }).setOrigin(0.5).setScrollFactor(0);
         restartButton = this.add.text(window.innerWidth / 2, window.innerHeight / 2 + 100, 'Restart Game', { fontSize: '32px', fill: '#fff', backgroundColor: '#00f' }).setOrigin(0.5).setScrollFactor(0);
         restartButton.setInteractive();
