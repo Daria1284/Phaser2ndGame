@@ -49,7 +49,9 @@ function preload() {
     this.load.image('platformFinish', 'assets/platformFinish.png'); // Завантаження зображення кінцевої платформи
     this.load.image('power', 'assets/power.png'); // Завантаження зображення життя
     this.load.image('bomb', 'assets/bomb.png'); // Завантаження зображення бомби
+    this.load.image('boll', 'assets/boll.jpg'); // Завантаження зображення кулі
 }
+
 // Константа, щоб визначити ширину фону
 //const WORLD_WIDTH = 5000; // Змінено ширину світу для відображення додаткової платформи
 
