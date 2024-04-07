@@ -347,4 +347,4 @@ function showLife() {
         lifeLine += '💕';
     }
     return lifeLine;
-}
+} 
