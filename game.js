@@ -314,17 +314,18 @@ function hitBomb(player, bomb) {
     liveText.setText(showLife());
     player.anims.play('turn');
     if (life === 0) {
-        canMove = false;
-        player.setVelocityX(0);
-        player.setVelocityY(0);
-        player.anims.stop();
+        canMove = false; // Забороняємо гравцю рухатися
+        player.setVelocityX(0); // Зупиняємо горизонтальний рух
+        player.setVelocityY(0); // Зупиняємо вертикальний рух
+        player.anims.stop(); // Зупиняємо відтворення анімації
+
         gameOverText = this.add.text(window.innerWidth / 2, window.innerHeight / 2, 'Game over', { fontSize: '64px', fill: '#f00' }).setOrigin(0.5).setScrollFactor(0);
         restartButton = this.add.text(window.innerWidth / 2, window.innerHeight / 2 + 100, 'Restart Game', { fontSize: '32px', fill: '#fff', backgroundColor: '#00f' }).setOrigin(0.5).setScrollFactor(0);
         restartButton.setInteractive();
         restartButton.on('pointerdown', refreshBody); // Виправлено виклик функції refreshBody
-
     }
 }
+
 function refreshBody() {
 
 
