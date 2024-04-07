@@ -263,6 +263,9 @@ function create() {
     this.physics.add.overlap(player, stars, collectStar, null, this);
     this.physics.add.collider(player, bombs, hitBomb, null, this);
     // this.physics.add.collider(player, vorog, hitBomb, null, this);
+    // Колізія гравця з ворогом
+this.physics.add.collider(player, player1, hitBomb, null, this);
+
 }
 
 
